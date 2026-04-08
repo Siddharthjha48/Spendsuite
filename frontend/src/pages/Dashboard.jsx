@@ -67,7 +67,7 @@ const Dashboard = () => {
   const fetchAnalytics = async () => {
     if (!user) return;
     try {
-      const res = await fetch(`http://localhost:5001/api/analytics?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/analytics?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       if (!res.ok) throw new Error('Failed to fetch analytics');
@@ -81,7 +81,7 @@ const Dashboard = () => {
   const fetchExpenses = async () => {
     if (!user) return;
     try {
-      const res = await fetch(`http://localhost:5001/api/expenses?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/expenses?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       if (!res.ok) throw new Error('Failed to fetch expenses');
@@ -134,7 +134,7 @@ const Dashboard = () => {
 
   const handleExpenseAction = async (id, action, status = null) => {
     try {
-      let url = `http://localhost:5001/api/expenses/${id}`;
+      let url = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/expenses/${id}`;
       let method = 'DELETE';
       let body = null;
 

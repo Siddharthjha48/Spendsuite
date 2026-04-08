@@ -37,8 +37,8 @@ const ExpenseForm = ({ onSuccess, initialData, token }) => {
 
     const expenseData = { amount, category, date, description };
     const url = initialData
-      ? `http://localhost:5001/api/expenses/${initialData._id}`
-      : 'http://localhost:5001/api/expenses';
+      ? `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/expenses/${initialData._id}`
+      : `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/expenses';
     const method = initialData ? 'PUT' : 'POST';
 
     try {
