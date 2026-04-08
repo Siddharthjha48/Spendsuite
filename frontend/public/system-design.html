@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendSuite System Design</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #0f172a; /* matches bg-gray-900 */ 
+            color: white; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 800px;
+            height: 450px; /* 16:9 aspect ratio roughly */
+            background: #1e293b;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+
+        .header {
+            width: 100%;
+            height: 3rem;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            gap: 0.5rem;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #eab308; }
+        .dot.green { background: #22c55e; }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeIn 1s forwards ease-in;
+        }
+
+        .architecture {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            height: 100%;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .node {
+            background: #334155;
+            border: 2px solid #4f46e5;
+            border-radius: 12px;
+            width: 160px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .node.frontend { animation: slideUp 0.8s 0.5s forwards ease-out; }
+        .node.backend { animation: slideUp 0.8s 1.2s forwards ease-out; }
+        .node.database { animation: slideUp 0.8s 1.9s forwards ease-out; }
+
+        .node svg { width: 40px; height: 40px; margin-bottom: 10px; color: #818cf8; }
+        .node h3 { margin: 0; font-size: 1.1rem; color: #f8fafc; }
+        .node p { margin: 5px 0 0; font-size: 0.8rem; color: #94a3b8; }
+
+        .connection {
+            position: absolute;
+            height: 4px;
+            background: #4f46e5;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            width: 0;
+        }
+
+        .conn-1 { left: 180px; width: 0; animation: drawLine 0.6s 2.7s forwards ease-in-out; }
+        .conn-2 { left: 460px; width: 0; animation: drawLine 0.6s 3.3s forwards ease-in-out; }
+
+        .data-packet {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #22d3ee;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            opacity: 0;
+            box-shadow: 0 0 10px #22d3ee;
+        }
+
+        .packet-1 { animation: movePacket 1.5s 4.0s infinite linear; left: 160px; }
+        .packet-2 { animation: movePacket 1.5s 4.5s infinite linear; left: 440px; }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes drawLine {
+            to { width: 100px; }
+        }
+        @keyframes movePacket {
+            0% { left: 160px; opacity: 1; }
+            45% { left: 260px; opacity: 1; }
+            50% { left: 260px; opacity: 0; }
+            100% { left: 260px; opacity: 0; }
+        }
+
+        .packet-2 {
+            animation: movePacket2 1.5s 4.5s infinite linear;
+        }
+        @keyframes movePacket2 {
+            0% { left: 440px; opacity: 1; }
+            45% { left: 540px; opacity: 1; }
+            50% { left: 540px; opacity: 0; }
+            100% { left: 540px; opacity: 0; }
+        }
+
+        /* Abstract UI elements inside nodes */
+        .ui-line { height: 4px; border-radius: 2px; background: #64748b; margin-top: 4px; }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        
+        <div class="title">SpendSuite System Architecture</div>
+        
+        <div class="architecture">
+            <div class="node frontend">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <h3>Client</h3>
+                <p>React + GSAP</p>
+                <div style="width: 80%; display: flex; flex-direction: column; align-items: center; margin-top: 10px;">
+                    <div class="ui-line" style="width: 100%;"></div>
+                    <div class="ui-line" style="width: 80%;"></div>
+                </div>
+            </div>
+
+            <div class="connection conn-1" style="max-width: 100px;"></div>
+            <div class="data-packet packet-1"></div>
+
+            <div class="node backend" style="border-color: #ec4899; box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.2);">
+                <svg fill="none" stroke="#ec4899" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                <h3>API Server</h3>
+                <p>Node.js + Express</p>
+                <div style="width: 80%; display: flex; flex-direction: column; align-items: center; margin-top: 10px;">
+                    <div class="ui-line" style="width: 100%; background: #9d174d;"></div>
+                    <div class="ui-line" style="width: 60%; background: #9d174d;"></div>
+                </div>
+            </div>
+
+            <div class="connection conn-2" style="max-width: 100px;"></div>
+            <div class="data-packet packet-2"></div>
+
+            <div class="node database" style="border-color: #10b981; box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);">
+                <svg fill="none" stroke="#10b981" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4 8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                <h3>Database</h3>
+                <p>MongoDB</p>
+                <div style="width: 80%; display: flex; flex-direction: column; align-items: center; margin-top: 10px;">
+                    <div class="ui-line" style="width: 100%; background: #065f46;"></div>
+                    <div class="ui-line" style="width: 90%; background: #065f46;"></div>
+                    <div class="ui-line" style="width: 70%; background: #065f46;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

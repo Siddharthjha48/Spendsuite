@@ -160,24 +160,24 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300">
       {/* Navbar */}
-      <nav ref={headerRef} className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav ref={headerRef} className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center gap-3">
               <img src="/logo-icon.png" alt="SpendSuite Logo" className="h-10 w-auto rounded-lg" />
-              <span className="text-xl font-bold text-gray-900 tracking-tight">SpendSuite</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">SpendSuite</span>
             </div>
             <div className="flex items-center gap-4">
               <DateRangeFilter startDate={dateRange.startDate} endDate={dateRange.endDate} onChange={handleDateChange} />
-              <div className="flex items-center gap-3 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
-                <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-semibold">
+              <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-700 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-600">
+                <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-700 dark:text-primary-100 font-semibold">
                   {user.name.charAt(0)}
                 </div>
-                <span className="text-sm font-medium text-gray-700 hidden sm:block">{user.name}</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:block">{user.name}</span>
               </div>
-              <button onClick={logout} className="text-gray-400 hover:text-gray-600">
+              <button onClick={logout} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
@@ -243,7 +243,7 @@ const Dashboard = () => {
         {/* Actions & Table */}
         <div ref={tableRef} className="space-y-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Expense Management</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Expense Management</h2>
             <button
               type="button"
               onClick={() => {
@@ -259,7 +259,7 @@ const Dashboard = () => {
             </button>
             <button
               onClick={exportToCSV}
-              className="ml-3 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg shadow-sm hover:bg-gray-50 transition-all font-medium flex items-center gap-2"
+              className="ml-3 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-all font-medium flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -270,12 +270,12 @@ const Dashboard = () => {
 
           {/* Admin Pending Indicator */}
           {(user.role === 'admin' || user.role === 'super_admin' || user.role === 'company_admin') && pendingCount > 0 && (
-            <div className={`mb-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg flex items-center justify-between shadow-sm animate-pulse`}>
+            <div className={`mb-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 dark:border-yellow-600 rounded-r-lg flex items-center justify-between shadow-sm animate-pulse`}>
               <div className="flex items-center">
-                <svg className="h-6 w-6 text-yellow-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-6 w-6 text-yellow-500 dark:text-yellow-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
-                <span className="text-yellow-700 font-medium">
+                <span className="text-yellow-700 dark:text-yellow-400 font-medium">
                   {pendingCount} Pending Expense{pendingCount !== 1 ? 's' : ''} Require Approval
                 </span>
               </div>
@@ -308,12 +308,12 @@ const Dashboard = () => {
 
       {/* Expense Form Modal - Moved outside main to avoid transform stacking context issues */}
       {showForm && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-white transition-opacity">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-gray-900/50 backdrop-blur-sm transition-opacity">
           <div className="w-full h-full overflow-y-auto">
-            <div className="max-w-3xl mx-auto min-h-screen bg-white shadow-none">
-              <div className="flex justify-between items-center p-6 border-b border-gray-100 sticky top-0 bg-white z-10">
-                <h3 className="text-2xl font-bold text-gray-900">{editingExpense ? 'Edit Expense' : 'Add New Expense'}</h3>
-                <button onClick={() => { setShowForm(false); setEditingExpense(null); }} className="text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100 transition-colors">
+            <div className="max-w-3xl mx-auto min-h-screen bg-white dark:bg-gray-800 shadow-xl transition-colors duration-300">
+              <div className="flex justify-between items-center p-6 border-b border-gray-100 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10 transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{editingExpense ? 'Edit Expense' : 'Add New Expense'}</h3>
+                <button onClick={() => { setShowForm(false); setEditingExpense(null); }} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>

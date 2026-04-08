@@ -35,10 +35,10 @@ const SmartExpenseTable = ({ expenses, onEdit, onDelete, onApprove, onReject, is
     });
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden relative">
       <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-lg font-bold text-gray-900">Recent Expenses</h3>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white">Recent Expenses</h3>
           {selectedCategory && (
             <span className="bg-primary-100 text-primary-700 text-xs px-2 py-1 rounded-full font-medium">
               Filtered by: {selectedCategory}
@@ -49,11 +49,11 @@ const SmartExpenseTable = ({ expenses, onEdit, onDelete, onApprove, onReject, is
           <input
             type="text"
             placeholder="Search expenses..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <svg className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
@@ -61,32 +61,32 @@ const SmartExpenseTable = ({ expenses, onEdit, onDelete, onApprove, onReject, is
 
       <div className="overflow-x-auto max-h-[600px]">
         <table className="w-full text-left relative border-collapse">
-          <thead className="sticky top-0 z-10 bg-gray-50 shadow-sm">
-            <tr className="text-gray-500 text-xs uppercase tracking-wider">
-              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 bg-gray-50" onClick={() => handleSort('description')}>Description</th>
-              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 bg-gray-50" onClick={() => handleSort('category')}>Category</th>
-              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 bg-gray-50" onClick={() => handleSort('date')}>Date</th>
-              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 bg-gray-50" onClick={() => handleSort('amount')}>Amount</th>
-              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 bg-gray-50" onClick={() => handleSort('status')}>Status</th>
-              <th className="px-6 py-4 font-semibold text-right bg-gray-50">Actions</th>
+          <thead className="sticky top-0 z-10 bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors">
+            <tr className="text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider">
+              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-800" onClick={() => handleSort('description')}>Description</th>
+              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-800" onClick={() => handleSort('category')}>Category</th>
+              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-800" onClick={() => handleSort('date')}>Date</th>
+              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-800" onClick={() => handleSort('amount')}>Amount</th>
+              <th className="px-6 py-4 font-semibold cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-800" onClick={() => handleSort('status')}>Status</th>
+              <th className="px-6 py-4 font-semibold text-right bg-gray-50 dark:bg-gray-800">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
             {filteredExpenses.map((expense) => (
-              <tr key={expense._id} className="hover:bg-primary-50 transition-colors duration-150">
+              <tr key={expense._id} className="hover:bg-primary-50 dark:hover:bg-gray-700/50 transition-colors duration-150">
                 <td className="px-6 py-4">
-                  <div className="font-medium text-gray-900">{expense.description || 'No description'}</div>
-                  <div className="text-xs text-gray-500">{expense.userId?.name}</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{expense.description || 'No description'}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{expense.userId?.name}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
                     {expense.category}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-600">
+                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
                   {new Date(expense.date).toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 font-bold text-gray-900">
+                <td className="px-6 py-4 font-bold text-gray-900 dark:text-white">
                   ₹{expense.amount.toFixed(2)}
                 </td>
                 <td className="px-6 py-4">
@@ -128,10 +128,10 @@ const SmartExpenseTable = ({ expenses, onEdit, onDelete, onApprove, onReject, is
 
       {/* Delete Confirmation Modal */}
       {deleteId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity">
-          <div className="bg-white rounded-2xl p-6 shadow-xl max-w-sm w-full mx-4 transform transition-all scale-100">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Delete Expense?</h3>
-            <p className="text-gray-500 mb-6">Are you sure you want to delete this expense? This action cannot be undone.</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm transition-opacity">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl max-w-sm w-full mx-4 transform transition-all scale-100">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Expense?</h3>
+            <p className="text-gray-500 dark:text-gray-400 mb-6">Are you sure you want to delete this expense? This action cannot be undone.</p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setDeleteId(null)}

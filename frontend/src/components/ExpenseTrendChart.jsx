@@ -40,17 +40,17 @@ const ExpenseTrendChart = ({ data }) => {
   const chartData = useMemo(() => processData(data, granularity), [data, granularity]);
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-[400px]">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 h-[400px]">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-bold text-gray-900">Expense Trend</h3>
-        <div className="flex bg-gray-100 p-1 rounded-lg">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Expense Trend</h3>
+        <div className="flex bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
           {['Daily', 'Weekly', 'Monthly'].map((g) => (
             <button
               key={g}
               onClick={() => setGranularity(g)}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${granularity === g
-                  ? 'bg-white text-primary-600 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 shadow-sm'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                 }`}
             >
               {g}

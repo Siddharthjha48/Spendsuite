@@ -10,8 +10,8 @@ const CategoryDonutChart = ({ data, onCategoryClick }) => {
     setActiveIndex(index);
   };
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-[400px]">
-      <h3 className="text-lg font-bold text-gray-900 mb-6">Expense by Category</h3>
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 h-[400px]">
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Expense by Category</h3>
       <ResponsiveContainer width="100%" height="85%">
         <PieChart>
           <Pie
@@ -51,7 +51,7 @@ const CategoryDonutChart = ({ data, onCategoryClick }) => {
             verticalAlign="bottom"
             height={36}
             iconType="circle"
-            formatter={(value, entry) => <span className="text-gray-600 font-medium ml-1">{value}</span>}
+            formatter={(value, entry) => <span className="text-gray-600 dark:text-gray-300 font-medium ml-1">{value}</span>}
           />
         </PieChart>
       </ResponsiveContainer>

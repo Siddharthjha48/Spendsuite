@@ -51,17 +51,17 @@ function HoverFooter() {
   const contactInfo = [
     {
       icon: <Mail size={18} className="text-[#3ca2fa]" />,
-      text: "support@spendsuite.com",
-      href: "mailto:support@spendsuite.com",
+      text: "siddharthjha79348@gmail.com",
+      href: "mailto:siddharthjha79348@gmail.com",
     },
     {
       icon: <Phone size={18} className="text-[#3ca2fa]" />,
-      text: "+1 (888) 123-4567",
-      href: "tel:+18881234567",
+      text: "+91 9508612405",
+      href: "tel:+919508612405",
     },
     {
       icon: <MapPin size={18} className="text-[#3ca2fa]" />,
-      text: "San Francisco, CA",
+      text: "Punjab, India",
     },
   ];
 

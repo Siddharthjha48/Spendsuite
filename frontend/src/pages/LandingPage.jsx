@@ -115,26 +115,17 @@ const LandingPage = () => {
             <Link to={user ? "/dashboard" : "/signup"} className="hero-btn px-8 py-4 bg-primary-600 text-white rounded-xl font-bold text-lg shadow-xl hover:bg-primary-700 transition-all transform hover:scale-105 hover:shadow-2xl">
               {user ? "Go to Dashboard" : "Start for Free"}
             </Link>
-            <Link to="/login" className="hero-btn px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-xl font-bold text-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-all transform hover:scale-105">
-              Live Demo
-            </Link>
           </div>
 
-          {/* Dashboard Preview Mockup */}
+          {/* System Design Video Preview */}
           <div className="mt-20 relative mx-auto max-w-5xl">
             <div className="bg-gray-900 rounded-2xl shadow-2xl p-2 sm:p-4 ring-1 ring-gray-900/10">
               <div className="bg-gray-800 rounded-xl overflow-hidden aspect-[16/9] relative">
-                {/* Abstract representation of dashboard */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                  <div className="text-gray-600 font-display text-2xl">Dashboard Preview</div>
-                  {/* You could add an actual image here if available */}
-                </div>
-                {/* Fake UI Elements */}
-                <div className="absolute top-0 left-0 right-0 h-12 bg-gray-800 border-b border-gray-700 flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                </div>
+                <img 
+                  src="/system-design-anim.webp" 
+                  alt="SpendSuite System Design Video" 
+                  className="w-full h-full object-cover relative z-10" 
+                />
               </div>
             </div>
           </div>

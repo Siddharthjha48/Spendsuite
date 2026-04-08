@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
-import HoverFooter from './components/HoverFooter';
+import SpotlightFooter from './components/SpotlightFooter';
 import { ThemeProvider } from './components/ThemeProvider';
 import { ThemeToggle } from './components/ThemeToggle';
 
@@ -34,7 +34,7 @@ function App() {
               }
             />
           </Routes>
-          <HoverFooter />
+          <SpotlightFooter />
           <ThemeToggle />
         </Router>
       </AuthProvider>
